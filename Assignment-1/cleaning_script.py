@@ -21,6 +21,10 @@ def main():
     distance = scaler.fit_transform(distance)
     df['Distance from nearest Metro station (km)'] = distance
 
+    # Normalization of columns
+    df = scaling_columns(dataframe=df,
+                         column_names=["latitude", "longitude", 'Distance from nearest Metro station (km)'])
+
     # Dropping columns
     cleaned_df = df.drop(['Transaction date', 'House price of unit area'],
                          axis=1)  # Dropping prices per unit area because it is leads to Multicollinearity
@@ -41,6 +45,17 @@ def remove_outliers(dataframe: pd.DataFrame,
                    inplace=True)
     dataframe = dataframe.reset_index().drop("index",
                                              axis=1)
+    return dataframe
+
+
+def scaling_columns(dataframe: pd.DataFrame,
+                    column_names: list):
+    scaler = StandardScaler()
+
+    scaled_column = dataframe[column_names].values
+    scaled_column = scaler.fit_transform(scaled_column.reshape(len(dataframe), len(column_names)))
+    dataframe[column_names] = scaled_column
+
     return dataframe
 
 
