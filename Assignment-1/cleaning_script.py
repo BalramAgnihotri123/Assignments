@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
 
 
 def main():
@@ -12,18 +13,23 @@ def main():
     df['prices'] = df['House size (sqft)'] * df['House price of unit area']  # Calculating total price of houses
 
     # Getting rid of the outliers
-    df = remove_outliers(dataframe=df,
-                         column_name="prices")
+    df= remove_outliers(dataframe=df,
+                        column_name="prices")
+
+    # feature engineering for location columns
+    location = df[['latitude', 'longitude']]
+    kmeans = KMeans(4)
+    df['location'] = kmeans.fit_predict(location)
 
     # Normalized distance
     distance = df['Distance from nearest Metro station (km)'].values.reshape(-1, 1)
     scaler = StandardScaler()
     distance = scaler.fit_transform(distance)
-    df['Distance from nearest Metro station (km)'] = distance
+    df["Distance from nearest Metro station (km)"] = distance
 
     # Normalization of columns
     df = scaling_columns(dataframe=df,
-                         column_names=["latitude", "longitude", 'Distance from nearest Metro station (km)'])
+                         column_names=['Distance from nearest Metro station (km)'])
 
     # Dropping columns
     cleaned_df = df.drop(['Transaction date', 'House price of unit area'],
