@@ -1,4 +1,11 @@
-# Assignment-1
+# Assignment 
+
+---
+
+**This repository consists of Asssignments on Machine Learning and NLP**
+
+
+## Assignment-1
 ---
 ### DESCRIPTION
 
@@ -12,3 +19,9 @@ Prediction of House prices using scikit-learn libraries and Analysis of the fact
 *   Scikit-Learn
 *   Statsmodels
 
+## Assignment-2
+---
+### DESCRIPTION
+
+Matching similar products from two datasets one containing Amazon dataset and the other containing flipkart dataset. This Folder consists of dataset from both the websites, a *walkthrough* of the project in a jupyter notebook and a python script format that contains easily editable and reusable code.
+The matching of the products is done through Consine Similarity of their titles/product_names.
